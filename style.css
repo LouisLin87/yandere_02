@@ -1,0 +1,386 @@
+/* ==========================================
+   全域基礎設定（雙系統高度完美適配）
+========================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  -webkit-tap-highlight-color: transparent; /* 消除行動端點擊時出現的藍色大方塊 */
+}
+
+html, body {
+  background-color: #0d0202;
+  color: #ffe6e6;
+  min-height: 100vh;
+  min-height: -webkit-fill-available; /* 解決 iOS 底部網址列把按鈕推下去的世紀難題 */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* 滿版獨立圖層：確保網頁各階段切換完全不疊加、不跑版 */
+.fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: -webkit-fill-available;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+  overflow: hidden;
+}
+
+#coverScreen { z-index: 10001; background: linear-gradient(180deg, #1f0813 0%, #0d0208 100%); }
+#ageGateScreen { z-index: 10000; }
+#pageTwoContainer { z-index: 9999; }
+
+/* ==========================================
+   封面專屬：浪漫粉紅戀愛感特效
+========================================== */
+.bubble-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 粉紅浪漫愛心與櫻花升空動畫 */
+.bubble {
+  position: absolute;
+  bottom: -60px;
+  opacity: 0.4;
+  animation: floatUpUp 7s infinite linear;
+}
+.bubble:nth-child(1) { left: 8%; font-size: 1.4rem; animation-delay: 0s; animation-duration: 6s; }
+.bubble:nth-child(2) { left: 28%; font-size: 2.2rem; animation-delay: 1.5s; animation-duration: 8s; opacity: 0.5; }
+.bubble:nth-child(3) { left: 45%; font-size: 1.6rem; animation-delay: 0.5s; animation-duration: 5.5s; }
+.bubble:nth-child(4) { left: 68%; font-size: 2rem; animation-delay: 3s; animation-duration: 9s; }
+.bubble:nth-child(5) { left: 82%; font-size: 1.3rem; animation-delay: 2.2s; animation-duration: 7s; }
+.bubble:nth-child(6) { left: 92%; font-size: 1.8rem; animation-delay: 4s; animation-duration: 6.5s; }
+
+@keyframes floatUpUp {
+  0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0.5; }
+  50% { opacity: 0.4; transform: translateY(-50vh) rotate(180deg) scale(1.1); }
+  100% { transform: translateY(-110vh) rotate(360deg) scale(0.8); opacity: 0; }
+}
+
+/* 狀態列 */
+.hacker-status-bar {
+  position: absolute;
+  top: max(20px, env(safe-area-inset-top)); /* 智能避開 iOS 頂部過長瀏海 */
+  width: 90%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  font-size: 0.85rem;
+  padding-bottom: 6px;
+  z-index: 2;
+}
+.hacker-status-bar.pink-theme {
+  color: #ff85a2;
+  border-bottom: 1px dotted rgba(255, 133, 162, 0.4);
+}
+
+/* 封面核心容器 */
+.phone-lock-container {
+  text-align: center;
+  width: 100%;
+  max-width: 440px;
+  z-index: 2;
+}
+
+.heart-pulse-icon {
+  font-size: 4rem;
+  margin-bottom: 12px;
+  display: inline-block;
+  animation: heartbeatPulse 1.4s infinite ease-in-out;
+}
+
+@keyframes heartbeatPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(255,105,180,0.4)); }
+  30% { transform: scale(1.15); filter: drop-shadow(0 0 15px rgba(255,105,180,0.8)); }
+  60% { transform: scale(1.05); }
+}
+
+.love-title {
+  font-size: 2.1rem;
+  color: #ff6584;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-shadow: 0 0 12px rgba(255,101,132,0.5);
+}
+
+.love-subtitle {
+  font-size: 0.95rem;
+  color: #f7aef8;
+  margin-top: 6px;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+/* 粉紅版學長簡介卡 */
+.profile-card.pink-card {
+  background: rgba(255, 101, 132, 0.06);
+  border: 1px solid rgba(255, 101, 132, 0.35);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: left;
+  box-shadow: 0 4px 20px rgba(255, 101, 132, 0.15);
+}
+
+.profile-avatar {
+  font-size: 2.2rem;
+  background: rgba(255, 101, 132, 0.2);
+  width: 55px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 101, 132, 0.5);
+  flex-shrink: 0;
+}
+
+.profile-info h3 {
+  font-size: 1.1rem;
+  color: #ff4d6d;
+  margin-bottom: 5px;
+}
+
+.profile-info p {
+  font-size: 0.85rem;
+  color: #e6ccff;
+  line-height: 1.4;
+}
+
+.profile-quote {
+  font-style: italic;
+  color: #ffb3c1 !important;
+  margin-top: 6px;
+  border-left: 3px solid #ff4d6d;
+  padding-left: 8px;
+}
+
+/* 粉紅戀愛感解鎖按鈕 */
+.unlock-btn.pink-btn {
+  background: linear-gradient(90deg, rgba(255,77,109,0.1) 0%, rgba(247,142,248,0.1) 100%);
+  border: 1px solid #ff4d6d;
+  color: #ff4d6d;
+  padding: 15px 30px;
+  font-size: 1.05rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(255,77,109,0.2);
+}
+.unlock-btn.pink-btn:active {
+  background: #ff4d6d;
+  color: #fff;
+  box-shadow: 0 0 25px #ff4d6d;
+  transform: scale(0.98);
+}
+
+/* ==========================================
+   其餘關卡介面（優化排版、防止溢出）
+========================================== */
+.age-box {
+  max-width: 480px;
+  width: 100%;
+  padding: 35px 20px;
+  background: rgba(10, 2, 5, 0.98);
+  border: 2px solid #ff3355;
+  box-shadow: 0 0 25px rgba(255, 51, 85, 0.3);
+  text-align: center;
+  border-radius: 8px;
+}
+.glitch-title { font-size: 1.3rem; color: #ff3355; letter-spacing: 1px; }
+.danger-line { border: 0; height: 1px; background: linear-gradient(to right, transparent, #ff3355, transparent); margin: 15px 0; }
+.warning-text { color: #ffd6e0; font-size: 0.92rem; line-height: 1.6; margin-bottom: 25px; }
+.age-btn-group { display: flex; gap: 15px; justify-content: center; }
+.cyber-btn { background: transparent; padding: 12px; font-size: 0.9rem; cursor: pointer; border-radius: 6px; flex: 1; font-weight: bold; }
+.secure-btn { border: 1px solid #00ff66; color: #00ff66; }
+.secure-btn:active { background: #00ff66; color: #000; }
+.abort-btn { border: 1px solid #ff3355; color: #ff3355; }
+.abort-btn:active { background: #ff3355; color: #fff; }
+
+.terminal-window { width: 95%; max-width: 600px; background: #050002; border: 1px solid #441122; border-radius: 8px; }
+.terminal-header { background: #15050b; padding: 11px; display: flex; align-items: center; }
+.dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+.dot.red { background: #ff5f56; } .dot.yellow { background: #ffbd2e; } .dot.green { background: #27c93f; }
+.title-text { color: #aa7788; font-size: 0.8rem; margin-left: 8px; font-family: monospace; }
+.terminal-body { padding: 15px; min-height: 260px; max-height: 380px; overflow-y: auto; }
+#terminalText { color: #00ff66; font-family: monospace; font-size: 0.88rem; white-space: pre-wrap; line-height: 1.5; }
+
+/* ==========================================
+   第四頁：主遊戲貨櫃面板
+========================================== */
+#game-container {
+  max-width: 600px;
+  width: 100%;
+  background: linear-gradient(135deg, #17040b 0%, #080104 100%);
+  border: 1px solid #551122;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: auto;
+}
+
+.game-title {
+  font-size: 1.05rem;
+  color: #ff3355;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 0 8px rgba(255,51,85,0.4);
+  margin-bottom: 5px;
+  line-height: 1.5;
+  word-break: break-all;
+  border-bottom: 1px solid rgba(255,51,85,0.2);
+  padding-bottom: 8px;
+}
+
+#stage-display { font-size: 0.85rem; color: #d6b3bd; line-height: 1.6; text-align: center; }
+.story-box { background: rgba(0, 0, 0, 0.5); border: 1px solid #330b17; padding: 16px; border-radius: 8px; min-height: 110px; position: relative; }
+.decor-line { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #ff3355; border-radius: 4px 0 0 4px; }
+#story-text { font-size: 0.95rem; line-height: 1.6; color: #ffe6eb; white-space: pre-wrap; }
+
+.options-vertical { display: flex; flex-direction: column; gap: 10px; }
+.option-btn {
+  display: flex;
+  align-items: center;
+  background: #1f070e;
+  border: 1px solid #551627;
+  color: #f5e1e6;
+  padding: 13px 16px;
+  font-size: 0.92rem;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s;
+  width: 100%;
+}
+.option-btn:active {
+  background: #440f21;
+  border-color: #ff3355;
+  color: #fff;
+}
+.option-letter {
+  background: #44101e;
+  color: #ff4d6d;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 0.82rem;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.option-text { line-height: 1.4; }
+
+/* ==========================================
+   五、核心黑客驚喜：瘋狂壞掉驚悚特效
+========================================== */
+.surprise-overlay {
+  background: #000 !important;
+  background-image: radial-gradient(circle, #2a0005 0%, #000000 100%) !important;
+  animation: ultraGlitchShake 0.15s infinite !important;
+  z-index: 10005 !important;
+}
+
+.scary-eye {
+  font-size: 7rem;
+  margin-bottom: 20px;
+  animation: eyeBlink 0.4s infinite alternate;
+  filter: drop-shadow(0 0 30px #ff0000);
+}
+
+.scary-title {
+  font-size: 2.2rem;
+  color: #ff0033;
+  font-weight: 900;
+  font-family: monospace;
+  text-shadow: 0 0 20px #ff0000;
+  letter-spacing: 5px;
+  margin-bottom: 15px;
+}
+
+.scary-subtitle {
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.scary-code {
+  font-family: monospace;
+  color: #00ff33;
+  background: rgba(0,0,0,0.85);
+  border: 1px solid #ff0033;
+  padding: 15px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  width: 90%;
+  max-width: 400px;
+}
+
+/* 全螢幕劇烈搖晃與閃爍 */
+@keyframes ultraGlitchShake {
+  0% { transform: translate(0, 0); background-color: #000; }
+  20% { transform: translate(-8px, 5px); background-color: #120002; }
+  40% { transform: translate(7px, -6px); }
+  60% { transform: translate(-5px, -4px); background-color: #000; }
+  80% { transform: translate(6px, 7px); }
+  100% { transform: translate(-2px, -2px); background-color: #1a0003; }
+}
+
+@keyframes eyeBlink {
+  0% { transform: scale(1) rotate(-5deg); }
+  100% { transform: scale(1.2) rotate(5deg); filter: drop-shadow(0 0 50px #ff0033); }
+}
+
+/* 額外通用動畫縮寫 */
+.shake-effect { animation: screenShake 0.3s ease-in-out; }
+@keyframes screenShake {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-4px, 2px); }
+  40% { transform: translate(4px, -2px); }
+  60% { transform: translate(-2px, -3px); }
+  80% { transform: translate(3px, 1px); }
+}
+.blinking-cursor { animation: blink 0.8s infinite; color: #ff3355; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* 電腦端滑鼠懸停增強（行動裝置不影響） */
+@media (hover: hover) {
+  .unlock-btn.pink-btn:hover { background: #ff4d6d; color: #fff; box-shadow: 0 0 25px rgba(255,77,109,0.7); }
+  .secure-btn:hover { background: #00ff66; color: #000; box-shadow: 0 0 15px #00ff66; }
+  .abort-btn:hover { background: #ff3355; color: #fff; box-shadow: 0 0 15px #ff3355; }
+  .option-btn:hover { background: #330b18; border-color: #ff3355; color: #fff; transform: translateX(3px); }
+}
