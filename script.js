@@ -416,7 +416,7 @@ function handleChoiceSelection(choiceLetter) {
     currentStage++;
     
     runYandereTypewriter(prefix + "【正在重新計算權限...載入第 " + (currentStage + 1) + " 日監禁環境】", 15, () => {
-        setTimeout(() => { showStage(); }, 1500); 
+        setTimeout(() => { showStage(); }, 7500);
     });
 }
 
